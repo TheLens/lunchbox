@@ -11,11 +11,13 @@ from fabric.api import local, task
 
 import app
 
+
 def _fake_context(path):
     """
     Create a fact request context for a given path.
     """
     return app.app.test_request_context(path=path)
+
 
 def _view_from_name(name):
     """
@@ -32,6 +34,7 @@ def _view_from_name(name):
 
     return globals()[module].__dict__[name]
 
+
 @task
 def less():
     """
@@ -45,8 +48,10 @@ def less():
         try:
             local('node_modules/less/bin/lessc %s %s' % (path, out_path))
         except:
-            print 'It looks like "lessc" isn\'t installed. Try running: "npm install"'
+            print 'It looks like "lessc" isn\'t installed. ' + \
+                'Try running: "npm install"'
             raise
+
 
 @task
 def app_config_js():
@@ -60,6 +65,7 @@ def app_config_js():
 
     with open('www/js/app_config.js', 'w') as f:
         f.write(response.data)
+
 
 @task(default=True)
 def render_all():

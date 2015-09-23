@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from datetime import datetime
-import json
+# from datetime import datetime
+# import json
 import os
 
-from boto.s3.key import Key
+# from boto.s3.key import Key
 from fabric.api import local, require, settings, task
 from fabric.state import env
 from termcolor import colored
@@ -35,6 +35,8 @@ Changing environment requires a full-stack test.
 An environment points to both a server and an S3
 bucket.
 """
+
+
 @task
 def electron():
     """
@@ -42,6 +44,7 @@ def electron():
     """
     env.settings = 'electron'
     app_config.configure_targets(env.settings)
+
 
 @task
 def fileserver():
@@ -51,6 +54,7 @@ def fileserver():
     env.settings = 'fileserver'
     app_config.configure_targets(env.settings)
 
+
 @task
 def production():
     """
@@ -58,6 +62,7 @@ def production():
     """
     env.settings = 'production'
     app_config.configure_targets(env.settings)
+
 
 @task
 def staging():
@@ -72,6 +77,8 @@ Branches
 
 Changing branches requires deploying that branch to a host.
 """
+
+
 @task
 def stable():
     """
@@ -79,12 +86,14 @@ def stable():
     """
     env.branch = 'stable'
 
+
 @task
 def master():
     """
     Work on development branch.
     """
     env.branch = 'master'
+
 
 @task
 def branch(branch_name):
@@ -96,15 +105,23 @@ def branch(branch_name):
 """
 Running the app
 """
+
+
 @task
 def app(port='8000'):
     """
     Serve app.py.
     """
     if env.settings:
-        local("DEPLOYMENT_TARGET=%s bash -c 'gunicorn -b 0.0.0.0:%s --timeout 3600 --debug --reload app:wsgi_app'" % (env.settings, port))
+        local(
+            "DEPLOYMENT_TARGET=%s bash " % env.settings +
+            "-c 'gunicorn -b 0.0.0.0:%s " % port +
+            "--timeout 3600 --debug --reload app:wsgi_app'")
     else:
-        local('gunicorn -b 0.0.0.0:%s --timeout 3600 --debug --reload app:wsgi_app' % port)
+        local(
+            'gunicorn -b 0.0.0.0:%s --timeout 3600 ' % port +
+            '--debug --reload app:wsgi_app')
+
 
 @task
 def public_app(port='8001'):
@@ -112,9 +129,15 @@ def public_app(port='8001'):
     Serve public_app.py.
     """
     if env.settings:
-        local("DEPLOYMENT_TARGET=%s bash -c 'gunicorn -b 0.0.0.0:%s --timeout 3600 --debug --reload public_app:wsgi_app'" % (env.settings, port))
+        local(
+            "DEPLOYMENT_TARGET=%s bash " % env.settings +
+            "-c 'gunicorn -b 0.0.0.0:%s " % port +
+            "--timeout 3600 --debug --reload public_app:wsgi_app'")
     else:
-        local('gunicorn -b 0.0.0.0:%s --timeout 3600 --debug --reload public_app:wsgi_app' % port)
+        local(
+            'gunicorn -b 0.0.0.0:%s ' % port +
+            '--timeout 3600 --debug --reload public_app:wsgi_app' % port)
+
 
 @task
 def tests():
@@ -130,6 +153,7 @@ Changes to deployment requires a full-stack test. Deployment
 has two primary functions: Pushing flat files to S3 and deploying
 code to a remote server if required.
 """
+
 
 @task
 def deploy(remote='origin', reload=False):
@@ -182,6 +206,7 @@ Destruction should remove all files related to the project from both a remote
 host and S3.
 """
 
+
 @task
 def shiva_the_destroyer():
     """
@@ -190,7 +215,10 @@ def shiva_the_destroyer():
     require('settings', provided_by=[production, staging])
 
     utils.confirm(
-        colored("You are about to destroy everything deployed to %s for this project.\nDo you know what you're doing?')" % app_config.DEPLOYMENT_TARGET, "red")
+        colored(
+            "You are about to destroy everything deployed to %s for " +
+            "this project.\nDo you know what you're " +
+            "doing?')" % app_config.DEPLOYMENT_TARGET, "red")
     )
 
     with settings(warn_only=True):

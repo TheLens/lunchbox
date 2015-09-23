@@ -10,18 +10,21 @@ import os
 
 from boto.s3.key import Key
 
-import app_config
+# import app_config
 import utils
 
 GZIP_FILE_TYPES = ['.html', '.js', '.json', '.css', '.xml']
+
 
 class FakeTime:
     def time(self):
         return 1261130520.0
 
 # Hack to override gzip's time implementation
-# See: http://stackoverflow.com/questions/264224/setting-the-gzip-timestamp-from-python
+# See: http://stackoverflow.com/questions/264224/
+# setting-the-gzip-timestamp-from-python
 gzip.time = FakeTime()
+
 
 def deploy_file(bucket, src, dst, headers={}):
     """
@@ -61,7 +64,8 @@ def deploy_file(bucket, src, dst, headers={}):
             print 'Skipping %s (has not changed)' % src
         else:
             print 'Uploading %s --> %s (gzipped)' % (src, dst)
-            k.set_contents_from_string(output.getvalue(), file_headers, policy='public-read')
+            k.set_contents_from_string(
+                output.getvalue(), file_headers, policy='public-read')
     # Non-gzip file
     else:
         with open(src, 'rb') as f:
@@ -73,12 +77,15 @@ def deploy_file(bucket, src, dst, headers={}):
             print 'Skipping %s (has not changed)' % src
         else:
             print 'Uploading %s --> %s' % (src, dst)
-            k.set_contents_from_filename(src, file_headers, policy='public-read')
+            k.set_contents_from_filename(
+                src, file_headers, policy='public-read')
+
 
 def deploy_folder(bucket_name, src, dst, headers={}, ignore=[]):
     """
     Deploy a folder to S3, checking each file to see if it has changed.
     """
+
     to_deploy = []
 
     for local_path, subdirs, filenames in os.walk(src, topdown=True):
@@ -112,6 +119,7 @@ def deploy_folder(bucket_name, src, dst, headers={}, ignore=[]):
     for src, dst in to_deploy:
         deploy_file(bucket, src, dst, headers)
 
+
 def delete_folder(bucket_name, dst):
     """
     Delete a folder from S3.
@@ -122,4 +130,3 @@ def delete_folder(bucket_name, dst):
         print 'Deleting %s' % (key.key)
 
         key.delete()
-

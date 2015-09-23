@@ -10,7 +10,7 @@ App Template for static publishing.
 from datetime import datetime
 
 import app_config
-import json
+# import json
 import static
 
 from flask import Flask, make_response, render_template
@@ -22,6 +22,7 @@ app.debug = app_config.DEBUG
 
 app.add_template_filter(smarty_filter, name='smarty')
 app.add_template_filter(urlencode_filter, name='urlencode')
+
 
 @app.route('/')
 @app.route('/index.html')
@@ -35,6 +36,7 @@ def index():
     context['now'] = datetime.now().strftime('%B %-d, %Y')
     return make_response(render_template('index.html', **context))
 
+
 @app.route('/factlist/index.html')
 def factlist():
     context = make_context()
@@ -42,12 +44,14 @@ def factlist():
     context['id'] = context['name']
     return make_response(render_template('factlist.html', **context))
 
+
 @app.route('/quotable/index.html')
 def quotable():
     context = make_context()
     context['name'] = 'Quotable'
     context['id'] = context['name']
     return make_response(render_template('quotable.html', **context))
+
 
 @app.route('/waterbug/index.html')
 def waterbug():

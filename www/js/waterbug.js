@@ -31,7 +31,7 @@ var dx = 0;
 var image;
 var imageFilename = 'image';
 var currentCopyright;
-var credit = 'Belal Khan/Flickr'
+var credit = 'Karen Gadbois/The Lens'
 var shallowImage = false;
 
 
@@ -209,10 +209,11 @@ var renderCanvas = function() {
     } else {
         ctx.globalAlpha = blackLogoAlpha;
     }
+
     ctx.drawImage(
         logo,
         elementPadding,
-        currentLogo === 'npr'? elementPadding : elementPadding - 14,
+        canvas.height - logos[currentLogo]['h'] - 14,
         logos[currentLogo]['w'],
         logos[currentLogo]['h']
     );

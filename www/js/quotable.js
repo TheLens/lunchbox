@@ -12,31 +12,33 @@ var $logoWrapper = null;
 
 var quotes = [
     {
-        "quote": "I'd been drinking.",
-        "source": "Dennis Rodman"
-    },
-    {
-        "quote": "I've made a huge mistake.",
-        "source": "G.O.B."
-    },
-    {
-        "quote": "Yes, I have smoked crack cocaine",
-        "source": "Toronto Mayor Rob Ford",
-        "size": 65
-    },
-    {
-        "quote": "Annyong.",
-        "source": "Annyong",
+        "quote": "Resilience.",
+        "source": "Mitch Landrieu, mayor of New Orleans",
         "size": 90
     },
     {
-        "quote": "STEVE HOLT!",
-        "source": "Steve Holt",
-        "size": 65
+        "quote": "Brownie, you're doing a heckuva job.",
+        "source": "Dubya",
+        "size": 40
     },
     {
-        "quote": "Whoa, whoa, whoa. There's still plenty of meat on that bone. Now you take this home, throw it in a pot, add some broth, a potato. Baby, you've got a stew going.",
-        "source": "Carl Weathers",
+        "quote": "If you have a tough job to do, hire a Jesuit.",
+        "source": "Rev. Kevin Wildes, former Civil Service Commission chairman",
+        "size": 40
+    },
+    {
+        "quote": "Millions upon millions of pieces of data.",
+        "source": "City of New Orleans legal counsel",
+        "size": 40
+    },
+    {
+        "quote": "I will pay for any incentives you would like to give the kids for doing their best on this FINAL test!! :-)",
+        "source": "Gary Robichaux, ReNEW Schools CEO",
+        "size": 40
+    },
+    {
+        "quote": "You never responded, so we tore it down.",
+        "source": "City Hall employee to Kellye Voigt",
         "size": 40
     }
 ];

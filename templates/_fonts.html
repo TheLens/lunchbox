@@ -1,7 +1,9 @@
 <!-- Fonts -->
 {{ JS.push('js/lib/webfont.js') }}
 {{ JS.render('js/webfont.min.js') }}
+<script type="text/javascript" src="//use.typekit.net/oct0mkd.js"></script>
 <script>
 	// Define your web fonts here.
 	// See https://github.com/typekit/webfontloader for documentation
+  try{Typekit.load();}catch(e){}
 </script>
