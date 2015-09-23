@@ -5,25 +5,25 @@ var elementPadding = 40; // padding around the logo and credit text
 // logo configuration
 // the name of the logo object should match the value of the corresponding radio button in the HTML.
 var logos = {
-    'lunchbox': {
+    'text': {
         whitePath: '../img/lens-logo-retina.png', // path to white logo
         blackPath: '../img/lens-logo-retina.png', // path to black logo
         w: 200, // width of logo
         h: 59, // height of logo
         display: 'Large'
     },
-    'socializr': {
-        whitePath: '../img/lens-logo-retina.png',
-        blackPath: '../img/lens-logo-retina.png',
-        w: 100,
-        h: 30,
+    'glass': {
+        whitePath: '../img/lens-logo-magnifying-glass-alpha.png',
+        blackPath: '../img/lens-logo-magnifying-glass-alpha.png',
+        w: 64,
+        h: 64,
         display: 'Small'
     }
 };
 
 // logo opacity for colors
 var whiteLogoAlpha = '0.6';
-var blackLogoAlpha = '1.0';
+var blackLogoAlpha = '0.9';
 
 // type
 var fontWeight = 'normal'; // font weight for credit
@@ -83,8 +83,9 @@ var copyrightOptions = {
 
 // app load defaults
 var currentCrop = 'twitter'; // default crop size
-var currentLogo = 'lunchbox'; // default logo slug
-var currentLogoColor = 'white'; // default logo color
+var currentLogoType = 'text'; // default logo slug
+var currentLogoColor = 'black'; // default logo color
+var currentLogoPosition = 'bottom_left';  // default logo placement
 var currentTextColor = 'white'; // default text color
 var defaultImage = '../img/test-demolition.jpg'; // path to image to load as test image
-var defaultLogo = logos[currentLogo]['whitePath']; // path to default logo
+var defaultLogo = logos[currentLogoType]['whitePath']; // path to default logo

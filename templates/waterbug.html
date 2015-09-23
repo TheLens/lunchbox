@@ -1,150 +1,136 @@
-{% extends '_base.html' %}
-
-{% block extra_css %}
-{{ CSS.push('less/waterbug.less') }}
-{{ CSS.render('css/waterbug.min.css') }}
-{% endblock %}
-
-{% block content %}
+{% extends '_base.html' %} {% block extra_css %} {{ CSS.push('less/waterbug.less') }} {{ CSS.render('css/waterbug.min.css') }} {% endblock %} {% block content %}
 <div class="wrapper">
-    <div class="canvas-wrapper">
-        <div class="canvas-cell">
-            <canvas id="imageCanvas" class="is-draggable"></canvas>
-            <p class="drag-help">Drag the image to adjust the crop.</p>
-        </div>
+  <div class="canvas-wrapper">
+    <div class="canvas-cell">
+      <canvas id="imageCanvas" class="is-draggable"></canvas>
+      <p class="drag-help">Drag the image to adjust the crop.</p>
     </div>
-    <div class="form controls">
-        <div class="controls-wrapper">
-            <form autocomplete="off">
-
-                <ul class="nav nav-pills">
-                    <li role="presentation" class="disabled">Image</li>
-                    <li role="presentation" class="active"><a href="#image-file" data-toggle="pill">File</a></li>
-                    <li role="presentation"><a href="#image-url" data-toggle="pill">URL</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="form-group tab-pane active" id="image-file">
-                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                            <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"></i> <span class="custom-filename" contentEditable="true"></span> <span class="fileinput-filename"></span></div>
-                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" id="imageLoader" name="imageLoader"></span>
-                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                        </div>
-                        <span class="help">Click to edit name</span>
-                    </div>
-
-                    <div class="form-group tab-pane" id="image-url">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="imageLink" name="imageLink">
-                            <span id="imageLinkButton" class="input-group-addon btn btn-default btn-file">Load image</span>
-                        </div>
-                        <span class="help">Click to edit name</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="copyright-holder">Copyright holder <span class="required is-visible">(Required)</span></label>
-
-                    <select class="copyright-holder form-control" name="copyright-holder">
-                      <option></option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="display: none;">
-                    <label for="photographer">Photographer <span class="required">(Required)</span></label>
-                    <input type="text" class="form-control" id="photographer" name="photographer">
-                </div>
-
-                <div class="form-group" style="display: none;">
-                    <label class="control-label">Source <span class="required">(Required)</span></label>
-                    <input type="text" class="form-control" id="source" name="source">
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label for="crop">Crop</label>
-                        <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                <input type="radio" name="crop" id="twitter" value="twitter" checked>
-                                16x9 <i class="fa fa-twitter"></i>
-                            </label>
-                            <label class="btn btn-primary">
-                              <input type="radio" name="crop" id="original" value="original">
-                              Original
-                            </label>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group col-lg-6 logos-wrapper">
-                        <label for="logo">Logo</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-6 col-lg-push-6">
-                        <label for="logoColor">Logo color</label>
-                        <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
-                          <label class="btn btn-primary active">
-                            <input type="radio" name="logoColor" id="whiteLogo" value="white" checked>
-                            White
-                          </label>
-                          <label class="btn btn-primary">
-                            <input type="radio" name="logoColor" id="blackLogo" value="black">
-                            Black
-                          </label>
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6 col-lg-pull-6">
-                        <label for="textColor">Text color</label>
-                        <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
-                          <label class="btn btn-primary active">
-                            <input type="radio" name="textColor" id="whiteText" value="white" checked>
-                            White
-                          </label>
-                          <label class="btn btn-primary">
-                            <input type="radio" name="textColor" id="blackText" value="black">
-                            Black
-                          </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Sharing guidelines</label>
-                    <ul class="guidelines">
-                        <li>Freelancer, third party/courtesy photos, PR, Flickr Creative Commons and public domain images are fine to share, just include correct attribution.</li>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    <p class="help-text visible-xs">To use the image on iOS, tap save to open the watermarked image in a new tab, then long tap the image and select “Save Image” to save the image to your camera roll.</p>
-                    <button class="btn btn-primary btn-lg btn-block save-btn" download="download.png" disabled>Save image</button>
-                </div>
-
-                <p class="sample-credit">Sample image: <a href="https://www.flickr.com/photos/karenapricot/353036275/in/photolist-xcpok-xcpjy-e52hUY-e52hFE/">Karen Gadbois</a></p>
-            </form>
+  </div>
+  <div class="form controls">
+    <div class="controls-wrapper">
+      <form autocomplete="off">
+        <ul class="nav nav-pills">
+          <li role="presentation" class="disabled">Image</li>
+          <li role="presentation" class="active"><a href="#image-file" data-toggle="pill">File</a></li>
+          <li role="presentation"><a href="#image-url" data-toggle="pill">URL</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="form-group tab-pane active" id="image-file">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+              <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"></i> <span class="custom-filename" contentEditable="true"></span> <span class="fileinput-filename"></span></div>
+              <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span>
+              <input type="file" id="imageLoader" name="imageLoader">
+            </span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+          </div>
+          <span class="help">Click to edit name</span>
         </div>
-    </div>
+        <div class="form-group tab-pane" id="image-url">
+          <div class="input-group">
+            <input type="text" class="form-control" id="imageLink" name="imageLink">
+            <span id="imageLinkButton" class="input-group-addon btn btn-default btn-file">Load image</span>
+          </div>
+          <span class="help">Click to edit name</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="copyright-holder">Copyright holder <span class="required is-visible">(Required)</span></label>
+        <select class="copyright-holder form-control" name="copyright-holder">
+          <option></option>
+        </select>
+      </div>
+      <div class="form-group" style="display: none;">
+        <label for="photographer">Photographer <span class="required">(Required)</span></label>
+        <input type="text" class="form-control" id="photographer" name="photographer">
+      </div>
+      <div class="form-group" style="display: none;">
+        <label class="control-label">Source <span class="required">(Required)</span></label>
+        <input type="text" class="form-control" id="source" name="source">
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-6">
+          <label for="crop">Crop</label>
+          <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="crop" id="twitter" value="twitter" checked> 16x9 <i class="fa fa-twitter"></i>
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="crop" id="original" value="original"> Original
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-lg-6">
+          <label for="logoType">Logo type</label>
+          <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="logoType" id="textLogo" value="text" checked> Text
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="logoType" id="glassLogo" value="glass"> Glass
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-6 col-lg-push-6">
+          <label for="logoColor">Logo color</label>
+          <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="logoColor" id="whiteLogo" value="white" checked> White
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="logoColor" id="blackLogo" value="black"> Black
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-lg-6 col-lg-pull-6">
+          <label for="textColor">Text color</label>
+          <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="textColor" id="whiteText" value="white" checked> White
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="textColor" id="blackText" value="black"> Black
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-lg-12">
+          <label for="logoPosition">Logo position</label>
+          <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
+            <label class="btn btn-primary">
+              <input type="radio" name="logoPosition" id="topLeft" value="top_left"> Top left
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="logoPosition" id="topRight" value="top_right"> Top right
+            </label>
+            <label class="btn btn-primary active">
+              <input type="radio" name="logoPosition" id="bottomLeft" value="bottom_left" checked> Bottom left
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="logoPosition" id="bottomRight" value="bottom_right"> Bottom right
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Sharing guidelines</label>
+        <ul class="guidelines">
+          <li>Freelancer, third party/courtesy photos, PR, Flickr Creative Commons and public domain images are fine to share, just include correct attribution.</li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <p class="help-text visible-xs">To use the image on iOS, tap save to open the watermarked image in a new tab, then long tap the image and select “Save Image” to save the image to your camera roll.</p>
+        <button class="btn btn-primary btn-lg btn-block save-btn" download="download.png" disabled>Save image</button>
+      </div>
+      <p class="sample-credit">Sample image: <a href="https://www.flickr.com/photos/karenapricot/353036275/in/photolist-xcpok-xcpjy-e52hUY-e52hFE/">Karen Gadbois</a></p>
+    </form>
+  </div>
 </div>
-{% endblock %}
-
-
-{% block wide_content %}
-{% endblock %}
-
-{% block jquery %}
-{% if DEPLOYMENT_TARGET == 'electron' %}
+</div>
+{% endblock %} {% block wide_content %} {% endblock %} {% block jquery %} {% if DEPLOYMENT_TARGET == 'electron' %}
 <script type="text/javascript">
-    window.$ = window.jQuery = require('../js/lib/jquery.js')
+window.$ = window.jQuery = require('../js/lib/jquery.js')
 </script>
-{% else %}
-{{ JS.push('js/lib/jquery.js') }}
-{% endif %}
-{% endblock jquery %}
-
-{% block extra_foot_js %}
-{{ JS.push('js/lib/bootstrap.js') }}
-{{ JS.push('js/lib/fileinput.js') }}
-{{ JS.push('js/waterbug-config.js') }}
-{{ JS.push('js/waterbug.js') }}
-{{ JS.render('js/waterbug.min.js') }}
-{% endblock extra_foot_js %}
+{% else %} {{ JS.push('js/lib/jquery.js') }} {% endif %} {% endblock jquery %} {% block extra_foot_js %} {{ JS.push('js/lib/bootstrap.js') }} {{ JS.push('js/lib/fileinput.js') }} {{ JS.push('js/waterbug-config.js') }} {{ JS.push('js/waterbug.js') }} {{ JS.render('js/waterbug.min.js') }} {% endblock extra_foot_js %}

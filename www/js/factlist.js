@@ -44,7 +44,7 @@ var onDocumentLoad = function() {
     updateTimestamp();
     timestampInterval = setInterval(updateTimestamp, 1000);
     setupMediumEditor();
-    
+
     $('[data-toggle="tooltip"]').tooltip();
 }
 

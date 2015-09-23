@@ -6,6 +6,7 @@ var $textColor;
 var $logo;
 var $crop;
 var $logoColor;
+var $logoPosition;
 var $imageLoader;
 var $imageLink;
 var $imageLinkButton;
@@ -54,6 +55,7 @@ var onDocumentLoad = function(e) {
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
+    $logoPosition = $('input[name="logoPosition"]');
     $qualityQuestions = $('.quality-question');
     $copyrightHolder = $('.copyright-holder');
     $dragHelp = $('.drag-help');
@@ -74,6 +76,7 @@ var onDocumentLoad = function(e) {
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
     $logoColor.on('change', onLogoColorChange);
+    $logoPosition.on('change', onLogoPositionChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown touchstart', onDrag);
     $copyrightHolder.on('change', onCopyrightChange);
@@ -127,13 +130,13 @@ var buildForm = function() {
             var display = logos[key]['display']
             $logos.append('<label class="btn btn-primary"><input type="radio" name="logo" id="' + key + '" value="' + key + '">' + display + '</label>');
             disableLogo();
-            if (key === currentLogo) {
+            if (key === currentLogoType) {
                 $('#' + key).attr('checked', true);
                 $('#' + key).parent('.btn').addClass('active');
             }
         }
-        $logo = $('input[name="logo"]');
-        $logo.on('change', onLogoChange);
+        $logo = $('input[name="logoType"]');
+        $logo.on('change', onLogoTypeChange);
     } else {
         $logosWrapper.hide();
     }
@@ -203,19 +206,37 @@ var renderCanvas = function() {
         }
     }
 
-    // set alpha channel, draw the logo
+    // set alpha channel
     if (currentLogoColor === 'white') {
         ctx.globalAlpha = whiteLogoAlpha;
     } else {
         ctx.globalAlpha = blackLogoAlpha;
     }
 
+    // New
+    var position_x;
+    var position_y;
+
+    if (currentLogoPosition === 'bottom_left') {  // Default
+        position_x = elementPadding;
+        position_y = canvas.height - logos[currentLogoType]['h'] - 14;
+    } else if (currentLogoPosition === 'bottom_right') {
+        position_x = canvas.width - logos[currentLogoType]['w'] - elementPadding;
+        position_y = canvas.height - logos[currentLogoType]['h'] - 14;
+    } else if (currentLogoPosition === 'top_left') {
+        position_x = elementPadding;
+        position_y = elementPadding;
+    } else if (currentLogoPosition === 'top_right') {
+        position_x = canvas.width - logos[currentLogoType]['w'] - elementPadding;
+        position_y = elementPadding;
+    }
+
     ctx.drawImage(
         logo,
-        elementPadding,
-        canvas.height - logos[currentLogo]['h'] - 14,
-        logos[currentLogo]['w'],
-        logos[currentLogo]['h']
+        position_x,
+        position_y,
+        logos[currentLogoType]['w'],
+        logos[currentLogoType]['h']
     );
 
     // reset alpha channel so text is not translucent
@@ -455,9 +476,9 @@ var onImageLoad = function(e) {
 */
 var loadLogo = function() {
     if (currentLogoColor === 'white') {
-        logo.src = logos[currentLogo]['whitePath'];
+        logo.src = logos[currentLogoType]['whitePath'];
     } else {
-        logo.src = logos[currentLogo]['blackPath'];
+        logo.src = logos[currentLogoType]['blackPath'];
     }
     disableLogo();
 }
@@ -466,8 +487,8 @@ var loadLogo = function() {
 * If image paths not defined for the logo, grey it out
 */
 var disableLogo = function(){
-    var whiteLogo = logos[currentLogo]['whitePath']
-    var blackLogo = logos[currentLogo]['blackPath']
+    var whiteLogo = logos[currentLogoType]['whitePath']
+    var blackLogo = logos[currentLogoType]['blackPath']
     if(typeof(whiteLogo) == "undefined"){
         $("#whiteLogo").parent().addClass("disabled")
     }else{
@@ -543,10 +564,18 @@ var onTextColorChange = function(e) {
 }
 
 /*
-* Handle logo radio button clicks
+* Handle text color radio button clicks
 */
-var onLogoChange = function(e) {
-    currentLogo = $(this).val();
+var onLogoPositionChange = function(e) {
+    currentLogoPosition = $(this).val();
+    renderCanvas();
+}
+
+/*
+* Handle logo type radio button clicks
+*/
+var onLogoTypeChange = function(e) {
+    currentLogoType = $(this).val();
 
     loadLogo();
     renderCanvas();
