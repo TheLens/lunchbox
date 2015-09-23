@@ -5,7 +5,7 @@ var $save;
 var $textColor;
 var $logo;
 var $crop;
-var $logoColor;
+var $logoOpacity;  // logoColor
 var $logoPosition;
 var $imageLoader;
 var $imageLink;
@@ -54,7 +54,7 @@ var onDocumentLoad = function(e) {
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
-    $logoColor = $('input[name="logoColor"]');
+    $logoOpacity = $('input[name="logoOpacity"]');
     $logoPosition = $('input[name="logoPosition"]');
     $qualityQuestions = $('.quality-question');
     $copyrightHolder = $('.copyright-holder');
@@ -75,7 +75,7 @@ var onDocumentLoad = function(e) {
     $imageLinkButton.on('click', handleImageLink);
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
-    $logoColor.on('change', onLogoColorChange);
+    $logoOpacity.on('change', onLogoOpacityChange);
     $logoPosition.on('change', onLogoPositionChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown touchstart', onDrag);
@@ -207,10 +207,10 @@ var renderCanvas = function() {
     }
 
     // set alpha channel
-    if (currentLogoColor === 'white') {
-        ctx.globalAlpha = whiteLogoAlpha;
+    if (currentLogoOpacity === 'light') {
+        ctx.globalAlpha = lightLogoAlpha;
     } else {
-        ctx.globalAlpha = blackLogoAlpha;
+        ctx.globalAlpha = darkLogoAlpha;
     }
 
     // New
@@ -475,7 +475,7 @@ var onImageLoad = function(e) {
 * Load the logo based on radio buttons
 */
 var loadLogo = function() {
-    if (currentLogoColor === 'white') {
+    if (currentLogoOpacity === 'light') {
         logo.src = logos[currentLogoType]['whitePath'];
     } else {
         logo.src = logos[currentLogoType]['blackPath'];
@@ -548,8 +548,8 @@ var onSaveClick = function(e) {
 /*
 * Handle logo radio button clicks
 */
-var onLogoColorChange = function(e) {
-    currentLogoColor = $(this).val();
+var onLogoOpacityChange = function(e) {
+    currentLogoOpacity = $(this).val();
 
     loadLogo();
     renderCanvas();

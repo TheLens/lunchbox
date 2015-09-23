@@ -22,8 +22,8 @@ var logos = {
 };
 
 // logo opacity for colors
-var whiteLogoAlpha = '0.6';
-var blackLogoAlpha = '0.9';
+var lightLogoAlpha = '0.6';  // whiteLogoAlpha
+var darkLogoAlpha = '0.9';
 
 // type
 var fontWeight = 'normal'; // font weight for credit
@@ -84,7 +84,7 @@ var copyrightOptions = {
 // app load defaults
 var currentCrop = 'twitter'; // default crop size
 var currentLogoType = 'text'; // default logo slug
-var currentLogoColor = 'black'; // default logo color
+var currentLogoOpacity = 'dark'; // default logo color
 var currentLogoPosition = 'bottom_left';  // default logo placement
 var currentTextColor = 'white'; // default text color
 var defaultImage = '../img/test-demolition.jpg'; // path to image to load as test image
